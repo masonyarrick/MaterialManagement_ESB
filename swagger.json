@@ -117,6 +117,7 @@
     },
     "MaterialLot" : {
       "type" : "object",
+      "description" : "A representation of a uniquely identified specific amount of material, either countable or weighable shall be named as a material lot. A material lot describes the planned or actual total quantity or amount of material available, its current state, and its specific property values. A material lot may be tested by the execution of a material test specification.",
       "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
@@ -182,6 +183,7 @@
     },
     "MaterialLotProperty" : {
       "type" : "object",
+      "description" : "Each material can have unique values for zero or more material lot properties, such as a specific pH value for the specific lot of material, or a specific density for the lot of material. A material lot property may be tested by the execution of a material test specification with results exchanged in a QA test specification result. Material lot properties may contain nested material lot properties.",
       "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
@@ -208,6 +210,7 @@
     },
     "MaterialCapability" : {
       "type" : "object",
+      "description" : "A representation of the capability of material that is committed, available, or unattainable for a specific time shall be used as a material capability. Material capability is used for material lots or sublots. This includes information that is associated with the functions of material and energy control and product inventory control. The currently available and committed material capability is the inventory. WIP (work in progress) is a material capability currently under the control of production.",
       "required" : [ "capabilityType", "quantity", "quantityUnitOfMeasure" ],
       "properties" : {
         "materialClassId" : {
@@ -285,6 +288,7 @@
     },
     "MaterialCapabilityProperty" : {
       "type" : "object",
+      "description" : "Material capability properties may contain nested material capability properties.",
       "required" : [ "id", "value", "quantity" ],
       "properties" : {
         "id" : {
