@@ -14,7 +14,7 @@
   },
   "paths" : { },
   "definitions" : {
-    "ResourceAcquired" : {
+    "ResourceAcquiredMessage" : {
       "type" : "object",
       "required" : [ "added" ],
       "properties" : {
@@ -26,7 +26,7 @@
         }
       }
     },
-    "ResourceAdjusted" : {
+    "ResourceAdjustedMessage" : {
       "type" : "object",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
@@ -50,7 +50,7 @@
         }
       }
     },
-    "WorkCapabilityManaged" : {
+    "WorkCapabilityManagedMessage" : {
       "type" : "object",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
@@ -74,7 +74,7 @@
         }
       }
     },
-    "WorkResourceCommitted" : {
+    "WorkResourceCommittedMessage" : {
       "type" : "object",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
