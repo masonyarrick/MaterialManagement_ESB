@@ -1,0 +1,271 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Defines the messages published by the Material Resource Management App Service.",
+    "version" : "1.0.0",
+    "title" : "Material Resource Management ESB Contract",
+    "contact" : {
+      "email" : "mason.yarrick@bhp.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths" : { },
+  "definitions" : {
+    "ResourceAcquired" : {
+      "type" : "object",
+      "required" : [ "added" ],
+      "properties" : {
+        "added" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        }
+      }
+    },
+    "ResourceAdjusted" : {
+      "type" : "object",
+      "required" : [ "added", "changed", "deleted" ],
+      "properties" : {
+        "added" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        },
+        "updated" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        },
+        "removed" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        }
+      }
+    },
+    "WorkCapabilityManaged" : {
+      "type" : "object",
+      "required" : [ "added", "changed", "deleted" ],
+      "properties" : {
+        "added" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        },
+        "changed" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        },
+        "deleted" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        }
+      }
+    },
+    "WorkResourceCommitted" : {
+      "type" : "object",
+      "required" : [ "added", "changed", "deleted" ],
+      "properties" : {
+        "added" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        },
+        "changed" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        },
+        "deleted" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapability"
+          }
+        }
+      }
+    },
+    "MaterialLot" : {
+      "type" : "object",
+      "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "Block XYZ"
+        },
+        "version" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "materialClassId" : {
+          "type" : "string",
+          "example" : "In-Situ"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "ER Crusher"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "example" : "ER-PC"
+        },
+        "quantity" : {
+          "type" : "number",
+          "example" : 5000
+        },
+        "quantityUnitOfMeasure" : {
+          "type" : "string",
+          "example" : "Tonnes"
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "example" : 201808151000
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "example" : 201808151000
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLotProperty"
+          }
+        }
+      }
+    },
+    "MaterialLotProperty" : {
+      "type" : "object",
+      "required" : [ "propertyKey", "propertyValue", "context", "unitOfMeasure" ],
+      "properties" : {
+        "propertyKey" : {
+          "type" : "string",
+          "example" : "Dig Rate"
+        },
+        "propertyValue" : {
+          "type" : "string",
+          "example" : 3600
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "Tonnes/Hour"
+        }
+      }
+    },
+    "MaterialCapability" : {
+      "type" : "object",
+      "required" : [ "capabilityType", "quantity", "quantityUnitOfMeasure" ],
+      "properties" : {
+        "materialClassId" : {
+          "type" : "string",
+          "example" : "ER-9400"
+        },
+        "materialDefinitionId" : {
+          "type" : "string",
+          "example" : "HG1"
+        },
+        "materialLotId" : {
+          "type" : "string",
+          "example" : "EX7015"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Used for digging"
+        },
+        "capabilityType" : {
+          "type" : "string",
+          "example" : "{Used,Unused,Total,Available,Unattainable,Committed}"
+        },
+        "reason" : {
+          "type" : "string",
+          "example" : "Due to schedule compliance"
+        },
+        "confidenceFactor" : {
+          "type" : "number",
+          "example" : 75
+        },
+        "hieararchyScopeId" : {
+          "type" : "string",
+          "example" : "ER-IP"
+        },
+        "materialUse" : {
+          "type" : "string",
+          "example" : "Digging"
+        },
+        "startTime" : {
+          "type" : "string",
+          "example" : "201808231000"
+        },
+        "endTime" : {
+          "type" : "string",
+          "example" : "201208241100"
+        },
+        "quantity" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "quantityUnitOfMeasure" : {
+          "type" : "string",
+          "example" : "Each"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapabilityProperty"
+          }
+        }
+      }
+    },
+    "MaterialCapabilityProperty" : {
+      "type" : "object",
+      "required" : [ "id", "value", "quantity" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "e4cad374-1dbc-4873-b46f-5a37c4215a5f"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Measurement System"
+        },
+        "value" : {
+          "type" : "string",
+          "example" : "Metric"
+        },
+        "valueUnitOfMeasure" : {
+          "type" : "string",
+          "example" : "{Metric,Imperial}"
+        },
+        "quantity" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "quantityUnitOfMeasure" : {
+          "type" : "string",
+          "example" : "Each"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialCapabilityProperty"
+          }
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https" ],
+  "basePath" : "/BHP7/MaterialResourceManagement_ESB/1.0.0"
+}
