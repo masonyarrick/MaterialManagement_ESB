@@ -16,6 +16,7 @@
   "definitions" : {
     "ResourceAcquiredMessage" : {
       "type" : "object",
+      "description" : "The resource acquired event notifies the acquisition of new physical resources. The physical resource(s) may have been acquired through processes such as procurement, recruitment or processes that produce material lots/sublots.",
       "required" : [ "added" ],
       "properties" : {
         "added" : {
@@ -28,6 +29,7 @@
     },
     "ResourceAdjustedMessage" : {
       "type" : "object",
+      "description" : "The resource adjusted event provides the ability for Level 4 supply chain operations processes or the resource management activity to notify Level 3 activities of adjustments to physical resources. The physical resource(s) may have been adjusted through processes such as commissioning of a physical asset, updated procurement information or changes to a material lot during operations scheduling or as a result of a test.",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
         "added" : {
@@ -36,13 +38,26 @@
             "$ref" : "#/definitions/MaterialLot"
           }
         },
-        "updated" : {
+        "changed" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/MaterialLot"
           }
         },
-        "removed" : {
+        "deleted" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        }
+      }
+    },
+    "ResourceRetiredMessage" : {
+      "type" : "object",
+      "description" : "The resource retired event provides the ability for Level 4 supply chain operations processes or the resource management activity to notify Level 3 activities when physical resources have been retired from service. The physical resource(s) may have been retired from service through processes such as disposal of a physical asset, when personnel leave an organization or when material lots are delivered to customers.",
+      "required" : [ "deleted" ],
+      "properties" : {
+        "deleted" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/MaterialLot"
@@ -52,6 +67,7 @@
     },
     "WorkCapabilityManagedMessage" : {
       "type" : "object",
+      "description" : "The work capability managed operations event provides the ability for the Level 3 resource management function to notify other Level 3 activities of changes to work capabilities.",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
         "added" : {
@@ -76,6 +92,7 @@
     },
     "WorkResourceCommittedMessage" : {
       "type" : "object",
+      "description" : "The work resource committed operations event provides the ability for Level 3 resource management activities to provide notification of the commitment of resources in a work schedule.",
       "required" : [ "added", "changed", "deleted" ],
       "properties" : {
         "added" : {
@@ -104,39 +121,56 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "A unique identification of a specific material lot, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material lot needs to be identified, such as the production capability for this material lot, or a production response identifying the material lot used.",
           "example" : "Block XYZ"
         },
         "version" : {
           "type" : "number",
+          "description" : "The version number of this instance of the Material Lot.",
           "example" : 1
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the material lot. For example, released, approved, blocked, in process, in quality check.",
+          "example" : "In Process"
         },
         "materialClassId" : {
           "type" : "string",
           "example" : "In-Situ"
         },
+        "materialDefinitionId" : {
+          "type" : "string",
+          "example" : "HG1"
+        },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the material lot.",
           "example" : "ER Crusher"
         },
-        "hierarchyScopeId" : {
+        "storageLocationId" : {
           "type" : "string",
+          "description" : "An identification of the storage location or a physical location of the material lot.",
           "example" : "ER-PC"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "The quantity of the material lot.",
           "example" : 5000
         },
         "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated quantity, if applicable.",
           "example" : "Tonnes"
         },
         "effectiveFrom" : {
           "type" : "string",
-          "example" : 201808151000
+          "description" : "The timestamp that this state of the Material Lot is effective from.",
+          "example" : "201808151000"
         },
         "effectiveTo" : {
           "type" : "string",
-          "example" : 201808151000
+          "description" : "The timestamp that this state of the Material Lot expires.",
+          "example" : "201808151000"
         },
         "properties" : {
           "type" : "array",
@@ -148,18 +182,26 @@
     },
     "MaterialLotProperty" : {
       "type" : "object",
-      "required" : [ "propertyKey", "propertyValue", "context", "unitOfMeasure" ],
+      "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
-        "propertyKey" : {
+        "id" : {
           "type" : "string",
+          "description" : "An identification of a specific material class property.",
+          "example" : "DigRate"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the material class property.",
           "example" : "Dig Rate"
         },
-        "propertyValue" : {
+        "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property.",
           "example" : 3600
         },
-        "unitOfMeasure" : {
+        "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "Tonnes/Hour"
         }
       }
@@ -170,54 +212,67 @@
       "properties" : {
         "materialClassId" : {
           "type" : "string",
+          "description" : "Identifies the associated material class of the capability.",
           "example" : "ER-9400"
         },
         "materialDefinitionId" : {
           "type" : "string",
+          "description" : "Identifies the associated material definition of the capability.",
           "example" : "HG1"
         },
         "materialLotId" : {
           "type" : "string",
+          "description" : "Identifies the associated material lot of the capability.",
           "example" : "EX7015"
         },
         "description" : {
           "type" : "string",
+          "description" : "Contains additional information and descriptions of the material capability definition.",
           "example" : "Used for digging"
         },
         "capabilityType" : {
           "type" : "string",
+          "description" : "The capability type: Used, Unused, Total, Available, Unattainable, or Committed.",
           "example" : "{Used,Unused,Total,Available,Unattainable,Committed}"
         },
         "reason" : {
           "type" : "string",
+          "description" : "Defines the reason for the capability type.",
           "example" : "Due to schedule compliance"
         },
         "confidenceFactor" : {
           "type" : "number",
+          "description" : "A measure of the confidence of the capacity value.",
           "example" : 75
         },
         "hieararchyScopeId" : {
           "type" : "string",
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy.  If omitted, then the capability is associated to the parent operations capability hierarchy scope.   Zero or more as required to identify the specific scope of the operations capability definition.",
           "example" : "ER-IP"
         },
         "materialUse" : {
           "type" : "string",
+          "description" : "Defines the expected capability use of the material. For example, Consumed, Produced, or Consumable.",
           "example" : "Digging"
         },
         "startTime" : {
           "type" : "string",
+          "description" : "The starting time associated with the material capability.   If omitted, then the capability is associated to the parent operations capability start time.",
           "example" : "201808231000"
         },
         "endTime" : {
           "type" : "string",
+          "description" : "The ending time associated with the material capability.   If omitted, then the capability is associated to the parent operations capability end time.",
           "example" : "201208241100"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "Specifies the quantity of the material capability defined, if applicable.",
           "example" : 1
         },
         "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the material quantity, if applicable.",
           "example" : "Each"
         },
         "properties" : {
@@ -234,26 +289,32 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "An identification of a property of the associated material property or equipment class property.",
           "example" : "e4cad374-1dbc-4873-b46f-5a37c4215a5f"
         },
         "description" : {
           "type" : "string",
+          "description" : "Contains additional information and descriptions of the material capability property definition.",
           "example" : "Measurement System"
         },
         "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property.",
           "example" : "Metric"
         },
         "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "{Metric,Imperial}"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "Specifies the quantity of the material capability defined, if applicable.",
           "example" : 1
         },
         "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated quantity.",
           "example" : "Each"
         },
         "properties" : {
