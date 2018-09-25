@@ -174,9 +174,11 @@
           "example" : "201808151000"
         },
         "spatialDefinition" : {
-          "type" : "object",
+          "type" : "array",
           "description" : "The location or footprint of this Equipment item.",
-          "$ref" : "#/definitions/SpatialDefinition"
+          "items" : {
+            "$ref" : "#/definitions/SpatialDefinition"
+          }
         },
         "properties" : {
           "type" : "array",
