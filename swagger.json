@@ -175,7 +175,7 @@
         },
         "spatialDefinition" : {
           "type" : "array",
-          "description" : "The location or footprint of this Equipment item.",
+          "description" : "The location or footprint of this item.",
           "items" : {
             "$ref" : "#/definitions/SpatialDefinition"
           }
